@@ -1,0 +1,25 @@
+<div class="centered-content">
+    <div class="model-box">
+        <h1 class="title">
+            Create new list
+        </h1>
+
+        <div class="field is-grouped">
+            <p class="control is-expanded">
+                <input #listTitleInput class="input inpText" type="text" placeholder="Enter list"
+                    (keydown.enter)="createList(listTitleInput.value)">
+            </p>
+        </div>
+
+        <div class="is-grouped buttons-grouped">
+            <p class="control">
+                <a class="button is-primary" (click)="createList(listTitleInput.value)">
+                    Create
+                </a>
+                <a class="button is-danger" (click)="cancelListModify()">
+                    Cancel
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

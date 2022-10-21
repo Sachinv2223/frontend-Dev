@@ -1,0 +1,45 @@
+<div class="centered-content">
+
+    <div class="task-manager-container" [ngClass]="{blur: (isListDataUpdating || isTaskDataUpdating)}">
+
+        <div class="sidebar">
+            <h1 class="title">
+                Lists
+            </h1>
+            <div class="list-menu">
+                <ng-container *ngFor="let list of lists">
+                    <a class="list-menu-item" routerLink="/lists/{{list._id}}" routerLinkActive="is-active">
+                        <p>{{list.Ltitle}}</p>
+                    </a>
+                </ng-container>
+            </div>
+            <button class="list-add button is-primary has-text-white" (click)="createNewList()">+ New List</button>
+        </div>
+
+        <div class="task-list-container">
+            <h1 class="title">
+                Tasks
+            </h1>
+            <div class="task-items-local-container" *ngIf="tasks">
+                <ng-container *ngFor="let task of tasks">
+                    <div class="task-item">
+                        <p>{{task.Ttitle}}</p>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="task-add-container" *ngIf="tempListId">
+                <button class="task-add button is-primary has-text-white" (click)="createNewTask()">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="data-add-container" *ngIf="isListDataUpdating">
+        <app-list-create (isListDataModifyEmitter)="fetchListModifyStatus($event)"></app-list-create>
+    </div>
+
+    <div class="data-add-container" *ngIf="isTaskDataUpdating">
+        <app-task-create [tempListId]="getTempListId()" (isTaskDataModifyEmitter)="fetchTaskModifyStatus($event)">
+        </app-task-create>
+    </div>
+
+</div>
