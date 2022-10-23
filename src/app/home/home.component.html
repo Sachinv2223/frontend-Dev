@@ -20,15 +20,18 @@
             <h1 class="title">
                 Tasks
             </h1>
-            <div class="task-items-local-container" *ngIf="tasks">
+            <div class="task-items-local-container" *ngIf="tempListId">
                 <ng-container *ngFor="let task of tasks">
-                    <div class="task-item">
+                    <div class="task-item" (click)="onTaskClick(task)" [ngClass]="{complete: task.completed }">
                         <p>{{task.Ttitle}}</p>
                     </div>
                 </ng-container>
             </div>
             <div class="task-add-container" *ngIf="tempListId">
                 <button class="task-add button is-primary has-text-white" (click)="createNewTask()">+</button>
+            </div>
+            <div class="no-task-state-container" *ngIf="!tempListId">
+                <h2 class="no-task-state-text">Select a list to view tasks</h2>
             </div>
         </div>
     </div>

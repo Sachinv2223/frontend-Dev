@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   lists: { _id: string, Ltitle: string, __v: number }[] = [];
-  tasks: { _id: string, Ttitle: string, _listId: string, __v: number }[] = [];
+  tasks: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }[] = [];
   tempListId: any = null;
 
   getTempListId() {
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
     this.isListDataUpdating = true;
   }
 
-  createNewTask(){
+  createNewTask() {
     this.isTaskDataUpdating = true;
   }
 
@@ -78,6 +78,19 @@ export class HomeComponent implements OnInit {
         console.log(this.tasks);
       }
     });
+  }
+
+  onTaskClick(taskParam: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }) {
+    //we want to set the task to be completed and vice-versa
+    this.taskserviceService.completeTask(taskParam).subscribe({
+      next: (res) => {
+        this.fetchTaskModifyStatus(false);
+      },
+      error: (err) => {
+        console.log(err);
+        this.fetchTaskModifyStatus(false);
+      }
+    })
   }
 
 }

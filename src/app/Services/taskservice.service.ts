@@ -26,4 +26,16 @@ export class TaskserviceService {
   getTask(listId: string) {
     return this.webReqService.get(`lists/${listId}/task`);
   }
+
+  completeTask(taskParam: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }) {
+    if (!taskParam.completed) {
+      return this.webReqService.patch(`lists/${taskParam._listId}/task/${taskParam._id}`, {
+        completed: true
+      })
+    } else {
+      return this.webReqService.patch(`lists/${taskParam._listId}/task/${taskParam._id}`, {
+        completed: false
+      })
+    }
+  }
 }

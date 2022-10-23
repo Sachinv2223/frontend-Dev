@@ -149,6 +149,7 @@
             // box-shadow: 0 0 0 4px gray;
             outline: solid 3px gray;
             outline-offset: -3px;
+            transform: translateY(-3px);
         }
 
         &:active {
@@ -158,8 +159,20 @@
     }
 
     &.complete {
+        transition: outline 0.2s ease, transform 0.3s ease;
         text-decoration: line-through;
-        opacity: 0.6;
+        opacity: 0.8;
+        cursor: pointer;
+
+        &:hover {
+            outline: solid 1px gray;
+            outline-offset: -1px;
+            transform: translateY(-2px);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
     }
 }
 
@@ -183,4 +196,14 @@
     z-index: -1;
     width: 110%;
     height: 110%;
+}
+
+.no-task-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    font-size: 25px;
+    margin-bottom: 60px;
 }
