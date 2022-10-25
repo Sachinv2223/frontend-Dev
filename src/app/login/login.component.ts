@@ -1,3 +1,5 @@
+import { HttpResponse } from '@angular/common/http';
+import { AuthService } from './../Services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { faEnvelope, faCheck, faLock } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +10,7 @@ import { faEnvelope, faCheck, faLock } from '@fortawesome/free-solid-svg-icons';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -16,5 +18,15 @@ export class LoginComponent implements OnInit {
   faEnvelope = faEnvelope;
   faCheck = faCheck;
   faLock = faLock;
+
+  onLoginBtnClick(email: string, password: string) {
+    this.authService.logIn(email, password).subscribe({
+      next: (res: HttpResponse<any>) => {
+        // console.log(`Response in login comp is : ${JSON.stringify(res)}`);
+        console.log(res);
+
+      }
+    })
+  }
 
 }
