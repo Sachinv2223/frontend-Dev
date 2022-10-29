@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AfterContentChecked, AfterContentInit, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../Services/auth.service';
 import { TaskserviceService } from '../Services/taskservice.service';
 
 @Component({
@@ -9,15 +10,38 @@ import { TaskserviceService } from '../Services/taskservice.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private taskserviceService: TaskserviceService, private route: ActivatedRoute) { }
+  constructor(private taskserviceService: TaskserviceService, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
+
     this.taskserviceService.getList().subscribe({
       next: (responseLists: any) => {
         this.lists = [...responseLists];
       }
     });
+    
+    /* This method is used to fetch the listId from the URL and then fetch the tasks of that listId. */
+    this.fetchingTempListIdAndTaskFromURL();
 
+    //! this is done because during refresh access token, ngOnint is not fired (or its being executed early before method in httpInterceptor completes). so we need the tempListId to show its task if we refresh page that time.
+    this.authService.accessTokenRefreshedSubject.subscribe({
+      next: (res) => {
+        console.log(res);
+        this.fetchingTempListIdAndTaskFromURL();
+      }
+    })
+  }
+
+  lists: { _id: string, Ltitle: string, __v: number }[] = [];
+  tasks: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }[] = [];
+  tempListId: any = null;
+
+  getTempListId() {
+    return this.tempListId;
+  }
+
+  /* This method is used to fetch the listId from the URL and then fetch the tasks of that listId. */
+  private fetchingTempListIdAndTaskFromURL = () => {
     this.route.paramMap.subscribe({
       next: (params) => {
         this.tempListId = params.get('listId');
@@ -30,14 +54,6 @@ export class HomeComponent implements OnInit {
         }
       }
     });
-  }
-
-  lists: { _id: string, Ltitle: string, __v: number }[] = [];
-  tasks: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }[] = [];
-  tempListId: any = null;
-
-  getTempListId() {
-    return this.tempListId;
   }
 
   isListDataUpdating: boolean = false;
@@ -91,6 +107,10 @@ export class HomeComponent implements OnInit {
         this.fetchTaskModifyStatus(false);
       }
     })
+  }
+
+  onLogoutBtnCllick() {
+    this.authService.logOut();
   }
 
 }

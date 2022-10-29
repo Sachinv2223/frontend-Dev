@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SkipSelf } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 
@@ -34,7 +34,16 @@ export class WebrequestService {
     return this.http.post(`${this.ROOT_URL}/user/login`, {
       email,
       password
-    }, { observe: 'response' });
+    }, /* Telling the httpClient to return the full response instead of just the body. */
+      { observe: 'response' });
+  }
+
+  signup(email: string, password: string) {
+    return this.http.post(`${this.ROOT_URL}/user`, {
+      email,
+      password
+    }, /* Telling the httpClient to return the full response instead of just the body. */
+      { observe: 'response' });
   }
 
 }

@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -8,7 +8,9 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ListCreateComponent } from './home/list-create/list-create.component';
 import { TaskCreateComponent } from './home/task-create/task-create.component';
+import { WebrequestInterceptor } from './interceptors/webrequest.interceptor';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     ListCreateComponent,
     TaskCreateComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,9 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: WebrequestInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

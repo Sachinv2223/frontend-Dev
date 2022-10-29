@@ -41,12 +41,19 @@
     position: relative;
 }
 
+.task-top-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .title {
     color: coral;
     font-family: 'Lato';
     font-size: 28px;
     text-transform: uppercase;
     letter-spacing: 1.8px;
+    margin-bottom: 24px;
 }
 
 .task-items-local-container {
@@ -206,4 +213,10 @@
     flex-grow: 1;
     font-size: 25px;
     margin-bottom: 60px;
+}
+
+.logout-container {
+    position: absolute;
+    top: 5vh;
+    right: 5vw;
 }

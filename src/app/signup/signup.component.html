@@ -1,7 +1,7 @@
 <div class="centered-content">
     <div class="model-box">
         <h1 class="title">
-            Login
+            SignUp
         </h1>
 
         <div class="field">
@@ -21,20 +21,20 @@
             </p>
         </div>
         <div class="field button-holder">
-            <p class="control login-button">
-                <button class="button is-success has-text-white"
-                    (click)="onLoginBtnClick(emailInput.value,passwordInput.value)">
-                    Login
+            <p class="control signup-button">
+                <button class="button is-success has-text-white" (click)="onSignupBtnClick(emailInput.value,passwordInput.value)">
+                    SignUp
                 </button>
             </p>
         </div>
         <div class="field horizontal-line-container">
             <hr class="horizontal-line">
         </div>
+
         <div class="field button-holder">
-            <p class="control signup-button">
-                <button class="button is-warning" (click)="onSignUpBtnClick()">
-                    SignUp
+            <p class="control login-button">
+                <button class="button is-warning" (click)="onLoginBtnClick()">
+                    Login
                 </button>
             </p>
         </div>
