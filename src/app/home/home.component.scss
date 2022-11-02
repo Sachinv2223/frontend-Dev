@@ -41,7 +41,7 @@
     position: relative;
 }
 
-.task-top-bar{
+.task-top-bar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -53,13 +53,35 @@
     font-size: 28px;
     text-transform: uppercase;
     letter-spacing: 1.8px;
-    margin-bottom: 24px;
+}
+
+.task-title-header {
+    margin: 0px !important;
+}
+
+.settings-btn {
+    // padding: 0px !important;
+    // margin: 0px !important;
+    // height: 28px !important;
+    // width: 28px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 39px !important;
+    width: 39px !important;
+    border-radius: 50%;
+}
+
+fa-icon {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
 .task-items-local-container {
     display: flex;
     flex-direction: column;
-    margin-top: 12px;
+    margin-top: 27px;
     padding-top: 3px;
     margin-bottom: 60px;
     flex-grow: 1;

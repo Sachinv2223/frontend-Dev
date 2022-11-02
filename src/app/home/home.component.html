@@ -1,6 +1,7 @@
 <div class="centered-content">
 
-    <div class="task-manager-container" [ngClass]="{blur: (isListDataUpdating || isTaskDataUpdating)}">
+    <div class="task-manager-container"
+        [ngClass]="{blur: (isListDataCreating || isTaskDataCreating || isListDataEditing)}">
 
         <div class="sidebar">
             <h1 class="title">
@@ -18,24 +19,25 @@
 
         <div class="task-list-container">
             <div class="task-top-bar">
-                <h1 class="title">
+                <h1 class="title task-title-header">
                     Tasks
                 </h1>
 
-                <div class="dropdown is-hoverable">
+                <div class="dropdown is-hoverable is-right" *ngIf="tempListId">
                     <div class="dropdown-trigger">
-                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-                            <span>Hover me</span>
-                            <span class="icon is-small">
-                                <i class="fas fa-angle-down" aria-hidden="true"></i>
-                            </span>
+                        <button class="button settings-btn" aria-haspopup="true" aria-controls="dropdown-menu4">
+                            <!-- Setting icon -->
+                            <fa-icon [icon]="faCog"></fa-icon>
                         </button>
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                         <div class="dropdown-content">
-                            <div class="dropdown-item">
-                                <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>
-                            </div>
+                            <a (click)="editList()" class="dropdown-item">
+                                Edit
+                            </a>
+                            <a (click)="onDeleteListBtnClick()" class="dropdown-item has-text-danger">
+                                Delete
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -58,15 +60,35 @@
         </div>
     </div>
 
-    <div class="data-add-container" *ngIf="isListDataUpdating">
-        <app-list-create (isListDataModifyEmitter)="fetchListModifyStatus($event)"></app-list-create>
+    <!-- Create list -->
+    <div class="data-add-container" *ngIf="isListDataCreating">
+        <app-common-child [primaryBtnFn]="createList" [secondaryBtnFn]="cancelCreateList">
+            <div class="title-name">Create a list</div>
+            <div class="primary-btn-name">Create</div>
+            <div class="secondary-btn-name">Cancel</div>
+        </app-common-child>
     </div>
 
-    <div class="data-add-container" *ngIf="isTaskDataUpdating">
-        <app-task-create [tempListId]="getTempListId()" (isTaskDataModifyEmitter)="fetchTaskModifyStatus($event)">
-        </app-task-create>
+    <!-- Create task -->
+    <div class="data-add-container" *ngIf="isTaskDataCreating">
+        <app-common-child [primaryBtnFn]="createTask" [secondaryBtnFn]="cancelCreateTask">
+            <div class="title-name">Create a task</div>
+            <div class="primary-btn-name">Create</div>
+            <div class="secondary-btn-name">Cancel</div>
+        </app-common-child>
     </div>
 
+    <!-- Edit list  -->
+    <div class="data-add-container" *ngIf="isListDataEditing">
+        <app-common-edit [oldValue]="tempList.Ltitle" [primaryBtnFn]="saveEditList" [secondaryBtnFn]="cancelEditList">
+            <div class="title-name">Edit list</div>
+            <div class="primary-btn-name">Save Edit</div>
+            <div class="secondary-btn-name">Cancel</div>
+        </app-common-edit>
+    </div>
+
+
+    <!-- Logout button -->
     <div class="logout-container">
         <button class="logout-btn button is-danger has-text-white" (click)="onLogoutBtnCllick()">Logout</button>
     </div>

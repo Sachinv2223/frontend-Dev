@@ -17,6 +17,18 @@ export class TaskserviceService {
     return this.webReqService.get('lists');
   }
 
+  getSpecificList(id: string) {
+    return this.webReqService.get(`lists/${id}`);
+  }
+
+  deleteList(id: string) {
+    return this.webReqService.delete(`lists/${id}`);
+  }
+
+  updateList(id: string, Ltitle: string) {
+    return this.webReqService.patch(`lists/${id}`, { Ltitle: Ltitle })
+  }
+
 
   //*--------Task methods--------
   createTask(Ttitle: string, listId: string) {
