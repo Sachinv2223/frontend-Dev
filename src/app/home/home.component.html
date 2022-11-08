@@ -44,10 +44,21 @@
 
             </div>
 
+
+
+            <!-- Task elements -->
             <div class="task-items-local-container" *ngIf="tempListId">
                 <ng-container *ngFor="let task of tasks">
                     <div class="task-item" (click)="onTaskClick(task)" [ngClass]="{complete: task.completed }">
                         <p>{{task.Ttitle}}</p>
+                        <div class="task-option-buttons-container">
+                            <div class="button task-option-btn is-warning mr-2">
+                                <fa-icon [icon]="faPenToSquare"></fa-icon>
+                            </div>
+                            <div class="button task-option-btn is-danger">
+                                <fa-icon [icon]="faTrash"></fa-icon>
+                            </div>
+                        </div>
                     </div>
                 </ng-container>
             </div>
@@ -59,6 +70,9 @@
             </div>
         </div>
     </div>
+
+
+
 
     <!-- Create list -->
     <div class="data-add-container" *ngIf="isListDataCreating">

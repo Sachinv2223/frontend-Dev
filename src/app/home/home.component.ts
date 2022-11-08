@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
 import { TaskserviceService } from '../Services/taskservice.service';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit {
 
   /* This is used to import the font-awesome icon. */
   faCog = faCog;
+  faTrash = faTrash;
+  faPenToSquare = faPenToSquare;
 
   lists: { _id: string, Ltitle: string, __v: number }[] = [];
   tasks: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }[] = [];

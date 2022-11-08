@@ -157,6 +157,9 @@ fa-icon {
 }
 
 .task-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     padding: 10px 15px;
     border-radius: 15px;
     background-color: rgb(232, 232, 232);
@@ -164,6 +167,9 @@ fa-icon {
     // &:first-of-type {
     //     margin-top: 15px;
     // }
+    p {
+        flex-grow: 1;
+    }
 
     &:not(:first-of-type) {
         margin-top: 5px;
@@ -203,6 +209,11 @@ fa-icon {
             transform: scale(0.95);
         }
     }
+}
+
+.task-option-btn {
+    height: 28px !important;
+    width: 28px !important;
 }
 
 .task-add-container {
