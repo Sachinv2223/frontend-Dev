@@ -50,4 +50,12 @@ export class TaskserviceService {
       })
     }
   }
+
+  deleteTask(taskParam: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }) {
+    return this.webReqService.delete(`lists/${taskParam._listId}/task/${taskParam._id}`);
+  }
+
+  updateTask(taskInput: string, taskParam: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }) {
+    return this.webReqService.patch(`lists/${taskParam._listId}/task/${taskParam._id}`, { Ttitle: taskInput, completed: taskParam.completed });
+  }
 }

@@ -60,10 +60,6 @@
 }
 
 .settings-btn {
-    // padding: 0px !important;
-    // margin: 0px !important;
-    // height: 28px !important;
-    // width: 28px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -178,13 +174,18 @@ fa-icon {
     &:not(.complete) {
         transition: outline 0.2s ease, transform 0.3s ease;
         cursor: pointer;
-        // margin-bottom: 5px;
+        // // margin-bottom: 5px;
 
         &:hover {
-            // box-shadow: 0 0 0 4px gray;
+            //// box-shadow: 0 0 0 4px gray;
             outline: solid 3px gray;
             outline-offset: -3px;
             transform: translateY(-3px);
+
+            .task-option-buttons-container {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         &:active {
@@ -203,12 +204,23 @@ fa-icon {
             outline: solid 1px gray;
             outline-offset: -1px;
             transform: translateY(-2px);
+
+            .task-option-buttons-container {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         &:active {
             transform: scale(0.95);
         }
     }
+}
+
+.task-option-buttons-container {
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.8);
 }
 
 .task-option-btn {

@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   tasks: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }[] = [];
   tempListId: any = null;
   tempList: { _id: string; Ltitle: string; __v: number; } = { _id: '', Ltitle: '', __v: 0 };
+  tempTask: { _id: string; Ttitle: string; _listId: string; __v: number; completed: boolean; } = { _id: '', Ttitle: '', __v: 0, _listId: '', completed: false }
 
   getTempListId() {
     return this.tempListId;
@@ -85,12 +86,13 @@ export class HomeComponent implements OnInit {
     this.isTaskDataCreating = true;
   }
 
-  editList() {
+  editListBtnClick() {
     this.getTempListValue();
     this.isListDataEditing = true;
   }
 
-  editTask() {
+  editTaskBtnClick(taskParam: { _id: string; Ttitle: string; _listId: string; __v: number; completed: boolean; }) {
+    this.tempTask = taskParam;
     this.isTaskDataEditing = true;
   }
 
@@ -165,6 +167,15 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  onDeleteTaskBtnClick(taskParam: { _id: string, Ttitle: string, _listId: string, __v: number, completed: boolean }) {
+    this.taskserviceService.deleteTask(taskParam).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.fetchingTempListIdAndTaskFromURL();
+      }
+    })
+  }
+
 
   //*---------- child component methods ---------
   createList = (listInput: string) => {
@@ -203,7 +214,7 @@ export class HomeComponent implements OnInit {
     this.isTaskDataCreating = false;
   }
 
-  // This for showing the old value in the input box (or as placeholder) before entering edited valu
+  // This for showing the old value in the input box (or as placeholder) before entering edited value
   getTempListValue = () => {
     this.taskserviceService.getSpecificList(this.tempListId).subscribe({
       next: (specifiListDoc: any) => {
@@ -227,6 +238,23 @@ export class HomeComponent implements OnInit {
 
   cancelEditList = () => {
     this.isListDataEditing = false;
+  }
+
+  saveEditTask = (taskInput: string) => {
+    this.taskserviceService.updateTask(taskInput, this.tempTask).subscribe({
+      next: (res) => {
+        this.taskserviceService.getTask(this.tempListId).subscribe({
+          next: (responseTasks: any) => {
+            this.tasks = [...responseTasks];
+            this.isTaskDataEditing = false;
+          }
+        });
+      }
+    })
+  }
+
+  cancelEditTask = () => {
+    this.isTaskDataEditing = false;
   }
 
 }

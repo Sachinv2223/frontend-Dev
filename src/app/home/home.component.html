@@ -1,7 +1,7 @@
 <div class="centered-content">
 
     <div class="task-manager-container"
-        [ngClass]="{blur: (isListDataCreating || isTaskDataCreating || isListDataEditing)}">
+        [ngClass]="{blur: (isListDataCreating || isTaskDataCreating || isListDataEditing || isTaskDataEditing)}">
 
         <div class="sidebar">
             <h1 class="title">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                         <div class="dropdown-content">
-                            <a (click)="editList()" class="dropdown-item">
+                            <a (click)="editListBtnClick()" class="dropdown-item">
                                 Edit
                             </a>
                             <a (click)="onDeleteListBtnClick()" class="dropdown-item has-text-danger">
@@ -50,14 +50,14 @@
             <div class="task-items-local-container" *ngIf="tempListId">
                 <ng-container *ngFor="let task of tasks">
                     <div class="task-item" (click)="onTaskClick(task)" [ngClass]="{complete: task.completed }">
-                        <p>{{task.Ttitle}}</p>
+                        <p class="task-text">{{task.Ttitle}}</p>
                         <div class="task-option-buttons-container">
-                            <div class="button task-option-btn is-warning mr-2">
+                            <button class="button task-option-btn is-warning mr-2" (click)="editTaskBtnClick(task)">
                                 <fa-icon [icon]="faPenToSquare"></fa-icon>
-                            </div>
-                            <div class="button task-option-btn is-danger">
+                            </button>
+                            <button class="button task-option-btn is-danger" (click)="onDeleteTaskBtnClick(task)">
                                 <fa-icon [icon]="faTrash"></fa-icon>
-                            </div>
+                            </button>
                         </div>
                     </div>
                 </ng-container>
@@ -96,6 +96,15 @@
     <div class="data-add-container" *ngIf="isListDataEditing">
         <app-common-edit [oldValue]="tempList.Ltitle" [primaryBtnFn]="saveEditList" [secondaryBtnFn]="cancelEditList">
             <div class="title-name">Edit list</div>
+            <div class="primary-btn-name">Save Edit</div>
+            <div class="secondary-btn-name">Cancel</div>
+        </app-common-edit>
+    </div>
+
+    <!-- Edit task  -->
+    <div class="data-add-container" *ngIf="isTaskDataEditing">
+        <app-common-edit [oldValue]="tempTask.Ttitle" [primaryBtnFn]="saveEditTask" [secondaryBtnFn]="cancelEditTask">
+            <div class="title-name">Edit Task</div>
             <div class="primary-btn-name">Save Edit</div>
             <div class="secondary-btn-name">Cancel</div>
         </app-common-edit>
