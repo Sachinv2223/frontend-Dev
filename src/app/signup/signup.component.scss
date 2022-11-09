@@ -46,3 +46,15 @@ button{
 .signup-button{
     margin-top: 12px;
 }
+
+.field.button-holder a {
+    color: rgb(255, 127, 80) !important;
+
+    &:hover {
+        color: rgb(255, 112, 60) !important;
+    }
+
+    &:active {
+        color: rgb(255, 90, 30) !important;
+    }
+}
