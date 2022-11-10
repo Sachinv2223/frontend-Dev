@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   ROOT_URL: 'http://localhost:4000'
-  // ROOT_URL: 'https://splanner-apiserver.herokuapp.com'
+  // ROOT_URL: 'https://splanner-api.onrender.com'
 };
 
 /*
